@@ -16,7 +16,7 @@ pipeline {
     
         stage("Checkout from SCM") {
             steps {
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/adriannavarrobetrian/gitops-complete-production-e2e-pipeline'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/adriannavarrobetrian/gitops-complete-production-e2e-pipeline.git'
             }
         }
     
@@ -38,14 +38,13 @@ pipeline {
                     git config --global user.name "adriannavarrobetrian"
                     git config --global user.email "adrian.navarro@outlook.com"
                     git add deployment.yaml
-                    git commit -m "Updated Deployment Manifest with tag ${IMAGE_TAG}"
+                    git commit -m "Updated Deployment Manifest"
                 """
                 withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                    sh "git push https://github.com/adriannavarrobetrian/gitops-complete-production-e2e-pipeline main"
-                }
+                    sh "git push https://github.com/adriannavarrobetrian/gitops-complete-production-e2e-pipeline.git main"
+                }                
             }
         }
 
     }
-
 }
